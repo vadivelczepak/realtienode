@@ -9,7 +9,7 @@ app.use(cors({ origin: "http://localhost:4200" }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ message: "Node API running!" });
+  res.json({ message: "Node API run" });
 });
 
 app.post("/api/login", (req, res) => {
