@@ -12,13 +12,13 @@ app.get("/", (req, res) => {
 
 // Write test data
 app.get("/test-write", async (req, res) => {
-  await db.ref("test").set({ message: "Hello from Render!" });
+  await db.ref("t_realtie_user").set({ message: "Hello from Render!" });
   res.send("Data written!");
 });
 
 // Read test data
 app.get("/test-read", async (req, res) => {
-  const snap = await db.ref("test").once("value");
+  const snap = await db.ref("t_realtie_user").once("value");
   res.json(snap.val());
 });
 
