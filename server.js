@@ -3,7 +3,7 @@ const db = require("./firebase");
 const { generateToken } = require("./tokenService");
 const { generateMobileToken } = require("./tokenMobileService");
 const app = express();
-app.use(cors({ origin: "https://myrealtie.web.app/" }));
+app.use(cors({ origin: "https://myrealtie.web.app" }));
 app.use(express.json());
 
 app.post("/api/login", (req, res) => {
