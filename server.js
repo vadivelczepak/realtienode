@@ -1,5 +1,7 @@
 const express = require("express");
 const db = require("./firebase");
+const { generateToken } = require("./tokenService");
+const { generateMobileToken } = require("./tokenMobileService");
 
 const app = express();
 app.use(express.json());
