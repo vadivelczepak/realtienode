@@ -4,16 +4,24 @@ const db = require("./firebase");
 const app = express();
 app.use(express.json());
 
+app.post("/api/login", (req, res) => {
+    const { username, email } = req.body;
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("Render + Firebase Connected!");
-});
+    // You can also check Firebase DB here if needed
+    const user = {
+        username,
+        email,
+        status: "verified"
+    };
 
-// Write test data
-app.get("/test-write", async (req, res) => {
-  await db.ref("t_realtie_user").set({ message: "Hello from Render!" });
-  res.send("Data written!");
+    const token = generateToken(user);
+
+    res.json({
+        status: 200,
+        message: "success",
+        token,
+        user
+    });
 });
 
 app.post("/api/checkMobileNumber", async (req, res) => {
@@ -42,10 +50,37 @@ app.post("/api/checkMobileNumber", async (req, res) => {
     res.status(500).json({ status: 400, message: error.message });
   }
 });
-// Read test data
-app.get("/test-read", async (req, res) => {
-  const snap = await db.ref("t_realtie_user").once("value");
-  res.json(snap.val());
+
+app.post("/api/checkOtp", async (req, res) => {
+  try {
+    const { mobileNumber, mobileOtp } = req.body;
+
+    if (!mobileNumber) {
+      return res.status(400).json({ status: 200, message: "failed" });
+    }
+
+    const snapshot = await db
+      .collection("t_realtie_user")
+      .where("mobile_number", "==", Number(mobileNumber))
+      .where("otp", "==", Number(mobileOtp))
+      .limit(1)
+      .get();
+
+    if (snapshot.empty) {
+      return res.json({ status: 200, message: "failed" });
+    }
+
+    const user = snapshot.docs[0].data();
+    const userDetils = {
+            mobileNumber,
+            status: "verified"
+        };
+    const token = generateMobileToken(userDetils);
+    res.json({ status: 200, message: "success", token });
+
+  } catch (error) {
+    res.status(500).json({ status: 400, message: error.message });
+  }
 });
 
 // Correct Render port
