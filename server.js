@@ -1,11 +1,9 @@
 const express = require("express");
-const admin = require("./firebase");
+const db = require("./firebase");
 
 const app = express();
 app.use(express.json());
 
-// Realtime Database
-const db = admin.database();
 
 // Test route
 app.get("/", (req, res) => {
