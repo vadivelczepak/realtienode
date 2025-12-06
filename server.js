@@ -2,8 +2,8 @@ const express = require("express");
 const db = require("./firebase");
 const { generateToken } = require("./tokenService");
 const { generateMobileToken } = require("./tokenMobileService");
-app.use(cors({ origin: "http://localhost:4200" }));
 const app = express();
+app.use(cors({ origin: "http://localhost:4200" }));
 app.use(express.json());
 
 app.post("/api/login", (req, res) => {
