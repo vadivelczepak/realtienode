@@ -1,5 +1,5 @@
 const express = require("express");
-const authMiddleware = require("./middleware/authMiddleware");
+const authMiddleware = require("./authMiddleware");
 const db = require("./firebase");
 const { generateToken } = require("./tokenService");
 const { generateMobileToken } = require("./tokenMobileService");
