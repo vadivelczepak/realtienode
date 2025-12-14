@@ -7,7 +7,10 @@ const app = express();
 app.use(express.json());
 
 app.get("/profile", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
+ res.json({
+        status: 200,
+        message: "success"
+    });
 });
 
 app.post("/api/login", (req, res) => {
