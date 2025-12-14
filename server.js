@@ -5,6 +5,13 @@ const { generateMobileToken } = require("./tokenMobileService");
 const app = express();
 app.use(express.json());
 
+app.get("/profile", authMiddleware, (req, res) => {
+  res.json({
+    message: "Protected data",
+    user: req.user
+  });
+});
+
 app.post("/api/login", (req, res) => {
     const { username, email } = req.body;
 
