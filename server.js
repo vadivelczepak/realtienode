@@ -6,7 +6,7 @@ const { generateMobileToken } = require("./tokenMobileService");
 const app = express();
 app.use(express.json());
 
-router.get("/profile", authMiddleware, (req, res) => {
+app.get("/profile", authMiddleware, (req, res) => {
   res.json({ user: req.user });
 });
 
