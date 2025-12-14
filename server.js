@@ -6,9 +6,7 @@ const { generateMobileToken } = require("./tokenMobileService");
 const app = express();
 app.use(express.json());
 
-app.get("/profile", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
-});
+
 
 
 app.post("/api/login", (req, res) => {
@@ -89,7 +87,9 @@ app.post("/api/checkOtp", async (req, res) => {
     res.status(500).json({ status: 400, message: error.message });
   }
 });
-
+app.get("/profile", authMiddleware, (req, res) => {
+  res.json({ user: req.user });
+});
 // Correct Render port
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("Server running on port", port));
