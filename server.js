@@ -1,5 +1,5 @@
 const express = require("express");
-const authMiddleware = require("./authMiddleware");
+
 const db = require("./firebase");
 const { generateToken } = require("./tokenService");
 const { generateMobileToken } = require("./tokenMobileService");
@@ -87,9 +87,7 @@ app.post("/api/checkOtp", async (req, res) => {
     res.status(500).json({ status: 400, message: error.message });
   }
 });
-app.get("/profile", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
-});
+
 // Correct Render port
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("Server running on port", port));
